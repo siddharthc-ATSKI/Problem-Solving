@@ -1,0 +1,33 @@
+// BUY AND SELL STOCK ONCE
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int buyAndSellStockOnce(const vector<int>& prices) {
+    int max_profit = 0;
+    int buy_price = prices[0];
+
+    for(int i=1; i < prices.size(); i++) {
+        if(prices[i] > buy_price)
+            max_profit = max(max_profit, prices[i] - buy_price);
+        
+        else 
+            buy_price = prices[i];
+    }
+
+    return max_profit;
+}
+
+int main() {
+    vector<int> prices {310,315,275,295,260,270,290,230,255,250};
+
+    cout<<"Stock Prices: ";
+    for(int i=0; i < prices.size(); i++)
+        cout<<prices[i]<<" ";
+
+    cout<<endl;
+
+    cout<<"Max Profit: "<<buyAndSellStockOnce(prices);
+
+    return 0;
+}
