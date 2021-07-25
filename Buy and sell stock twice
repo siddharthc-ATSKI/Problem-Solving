@@ -1,0 +1,35 @@
+// BUY AND SELL STOCK TWICE
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int BuyAndSellStockTwice(vector<int> prices) {
+    vector<int> f_profits (prices.size(), 0);
+    int max_profit = 0;
+    int buy_price = prices[0];
+
+    for(int i=0; i < prices.size(); i++) {
+        max_profit = max(max_profit, prices[i] - buy_price);
+        buy_price = min(buy_price, prices[i]);
+        f_profits[i] = max_profit;
+    }
+
+    int max_price = 0;
+    int max_reverse_profit = 0;
+
+    for(int i = prices.size() - 1; i >= 0; i--) {
+        max_price = max(max_price, prices[i]);
+        max_reverse_profit = max(max_reverse_profit, max_price - prices[i]);
+        max_profit = max(max_profit, f_profits[i] + max_reverse_profit);
+    }
+
+    return max_profit;
+}
+
+int main() {
+    vector<int> prices {90, 80, 70, 60, 50};
+
+    cout<<BuyAndSellStockTwice(prices)<<endl;
+
+    return 0;
+}
