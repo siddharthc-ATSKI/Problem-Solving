@@ -1,0 +1,38 @@
+// PERMUTE THE ELEMENTS OF AN ARRAY
+
+#include<bits/stdc++.h>
+using namespace std;
+
+void ApplyPermutation(vector<int> perm, vector<char>& A) {
+    for(int i=0; i < A.size(); i++) {
+        int next = i;
+        
+        while(perm[next] >= 0) {
+            swap(A[i], A[perm[next]]);
+            int temp = perm[next];
+            perm[next] -= perm.size();
+            next = temp;
+        }
+    }
+}
+
+int main() {
+    vector<char> A {'a','b','c','d'};
+    vector<int> perm {3,2,0,1};
+
+    cout<<"Before Permutation: ";
+    for(int i=0; i < A.size(); i++)
+        cout<<A[i]<<" ";
+
+    cout<<endl;
+
+    ApplyPermutation(perm, A);
+
+    cout<<"After Permutation: ";
+    for(int i=0; i < A.size(); i++)
+        cout<<A[i]<<" ";
+    
+    cout<<endl;
+
+    return 0;
+}
