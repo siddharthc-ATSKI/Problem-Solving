@@ -1,0 +1,80 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+bool isValidSudoku(const vector<vector<int>>& partial_assignment) {
+    // check each horizontal
+    for(int i=0; i < partial_assignment.size(); i++) {
+        vector<int> sudoku(10, 1);
+        for(int j=0; j < partial_assignment.size(); j++) {
+            if(partial_assignment[i][j])
+                if(sudoku[partial_assignment[i][j]] == -1) {
+                    cout<<"Check horizontal at row "<<i+1<<" col "<<j+1<<endl;
+                    return false;                    
+                }
+                
+                else
+                    sudoku[partial_assignment[i][j]] = -1;
+        }
+    }
+
+    // check each vertical
+    for(int j=0; j < partial_assignment.size(); j++) {
+        vector<int> sudoku(10, 1);
+        for(int i=0; i < partial_assignment.size(); i++) {
+            if(partial_assignment[i][j])
+                if(sudoku[partial_assignment[i][j]] == -1) {
+                    cout<<"Check vertical at row "<<i+1<<" col "<<j+1<<endl;
+                    return false;                    
+                }
+                
+                else
+                    sudoku[partial_assignment[i][j]] = -1;
+        }        
+    }
+
+    // check sub regions of sudoku table
+    for(int i=0; i < partial_assignment.size(); i += 3) {
+        for(int j=0; j < partial_assignment.size(); j += 3) {
+            vector<int> sudoku(10, 1);
+
+            for(int k=0; k < 3; k++) {
+                for(int l=0; l < 3; l++) {
+                    if(partial_assignment[k+i][l+j]){
+                        if(sudoku[partial_assignment[k+i][l+j]] == -1) {
+                            cout<<"Check sub region at row "<<i+1<<" col "<<j+1<<endl;
+                            return false;                    
+                        }
+                        
+                        else
+                            sudoku[partial_assignment[k+i][l+j]] = -1;
+                    }
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
+int main() {
+    vector<vector<int>> table
+    {
+        {0,0,7,1,0,0,0,5,0},
+        {0,6,0,0,0,0,0,7,0},
+        {0,0,0,7,0,0,3,0,4},
+        {3,0,0,4,0,0,5,2,0},
+        {0,2,0,8,0,5,0,4,0},
+        {0,8,4,0,0,3,0,0,6},
+        {1,0,5,0,0,2,0,0,0},
+        {0,7,0,0,0,0,0,6,0},
+        {0,4,0,0,0,9,1,0,0}
+    };
+
+    if(isValidSudoku(table))
+        cout<<"table is valid"<<endl;
+    
+    else
+        cout<<"table not valid"<<endl;
+
+    return 0;
+}
