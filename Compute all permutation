@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void computePermutation(string& s, int left) {
+    if(left == s.size() - 1) {
+        cout<<s<<endl;
+        return;
+    }
+
+    for(int i = left; i < s.size(); i++) {
+        swap(s[left], s[i]);
+        computePermutation(s, left + 1);
+        swap(s[left], s[i]);
+    }
+}
+
+int main() {
+    string s;
+    cout<<"Enter String: ";
+    cin>>s;
+
+    computePermutation(s, 0);
+
+    return 0;
+}
