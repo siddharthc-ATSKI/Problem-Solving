@@ -1,0 +1,24 @@
+// Fibonacci Memoization
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int fibonacci(int n, unordered_map<int, int>& umap) {
+    if(umap.find(n) != umap.end())
+        return umap[n];
+    if(n <= 2) 
+        return 1;
+    
+    umap[n] = fibonacci(n-1, umap) + fibonacci(n-2, umap);
+
+    return umap[n];
+}
+
+int main() {
+    unordered_map<int, int> myMap;
+    cout<<fibonacci(5, myMap)<<endl;
+    cout<<fibonacci(8, myMap)<<endl;
+    cout<<fibonacci(50, myMap)<<endl;
+
+    return 0;
+}
